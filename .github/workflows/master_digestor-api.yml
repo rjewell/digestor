@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - digestor-api
+name: digestor-api on azure
 
 on:
   push:
@@ -9,11 +9,12 @@ on:
       - master
     paths:
       - 'DigestorApi/**'
+      - '.github/workflows/master_digestor-api.yml'
 
 jobs:
   build-and-deploy:
     env:
-      DOTNET_ROOT: ./DigestorApi 
+      DOTNET_ROOT: ./DigestorApi
     runs-on: ubuntu-latest
 
     steps:
@@ -26,11 +27,14 @@ jobs:
 
     - name: Build with dotnet
       run: dotnet build --configuration Release
+      working-directory: ./DigestorApi
 
     - name: dotnet publish
       run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      working-directory: ./DigestorApi
 
     - name: Deploy to Azure Web App
+      working-directory: ./DigestorApi
       uses: azure/webapps-deploy@v1
       with:
         app-name: 'digestor-api'
