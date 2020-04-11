@@ -13,8 +13,6 @@ on:
 
 jobs:
   build-and-deploy:
-    env:
-      DOTNET_ROOT: ./DigestorApi
     runs-on: ubuntu-latest
 
     steps:
@@ -34,7 +32,6 @@ jobs:
       working-directory: ./DigestorApi
 
     - name: Deploy to Azure Web App
-      working-directory: ./DigestorApi
       uses: azure/webapps-deploy@v1
       with:
         app-name: 'digestor-api'
