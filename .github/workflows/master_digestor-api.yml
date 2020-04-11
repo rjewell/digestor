@@ -7,9 +7,13 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'DigestorApi/**'
 
 jobs:
   build-and-deploy:
+    env:
+      DOTNET_ROOT: ./DigestorApi 
     runs-on: ubuntu-latest
 
     steps:
