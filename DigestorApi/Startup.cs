@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using DigestorApi.Models;
 
 namespace DigestorApi
 {
@@ -25,7 +27,10 @@ namespace DigestorApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddDbContext<DigestorApiContext>(opt =>
+               opt.UseInMemoryDatabase("MessageLog"));
+            services.AddControllers()
+            .AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
