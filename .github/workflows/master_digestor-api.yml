@@ -36,5 +36,5 @@ jobs:
       with:
         app-name: 'digestor-api'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_6a4d47df1a2140b78086621542b50d1c }}
+        publish-profile: ${{ secrets.AzurePublishProfile }}
         package: ${{env.DOTNET_ROOT}}/myapp 
