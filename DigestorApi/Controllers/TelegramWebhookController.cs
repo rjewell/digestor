@@ -25,9 +25,9 @@ namespace DigestorApi.Controllers
         private readonly IConfiguration Configuration;
         private readonly ILogger<TelegramWebhookController> _logger;
         private static TelegramBotClient Bot;
-        private readonly DigestorApiContext _context;
+        private readonly MessageLogContext _context;
         
-        public TelegramWebhookController(ILogger<TelegramWebhookController> logger, IConfiguration configuration, DigestorApiContext context)
+        public TelegramWebhookController(ILogger<TelegramWebhookController> logger, IConfiguration configuration, MessageLogContext context)
         {
             _logger = logger;
             Configuration = configuration;

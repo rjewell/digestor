@@ -13,9 +13,9 @@ namespace DigestorApi.Controllers
     [ApiController]
     public class MessagesController : ControllerBase
     {
-        private readonly DigestorApiContext _context;
+        private readonly MessageLogContext _context;
 
-        public MessagesController(DigestorApiContext context)
+        public MessagesController(MessageLogContext context)
         {
             _context = context;
         }

@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DigestorApi.Models
 {
-    public class DigestorApiContext : DbContext
+    public class MessageLogContext : DbContext
     {
-        public DigestorApiContext(DbContextOptions<DigestorApiContext> options)
+        public MessageLogContext(DbContextOptions<MessageLogContext> options)
             : base(options)
         {
         }
