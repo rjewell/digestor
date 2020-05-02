@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 public class Message
@@ -7,6 +8,8 @@ public class Message
     {
         Sent = DateTime.Now;
     }
+
+    [Key,DatabaseGenerated(DatabaseGeneratedOption.None)]
     public long Id { get; set; }
     public int ChatId { get; set; }
 
