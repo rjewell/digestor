@@ -45,7 +45,7 @@ namespace DigestorApi.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMessage(long id, Message message)
+        public async Task<IActionResult> PutMessage(Guid id, Message message)
         {
             if (id != message.Id)
             {
@@ -101,7 +101,7 @@ namespace DigestorApi.Controllers
             return message;
         }
 
-        private bool MessageExists(long id)
+        private bool MessageExists(Guid id)
         {
             return _context.Messages.Any(e => e.Id == id);
         }
