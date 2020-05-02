@@ -27,7 +27,7 @@ namespace DigestorApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MessageLogContext>(options => options.UseSqlite("Data Source=messagelog.db"));
+            services.AddDbContext<MessageLogContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
             services.AddControllers()
             .AddNewtonsoftJson();
         }
@@ -36,7 +36,7 @@ namespace DigestorApi
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MessageLogContext dbContext)
         {
             dbContext.Database.EnsureCreated();
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
