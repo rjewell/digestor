@@ -9,8 +9,8 @@ public class Message
         Sent = DateTime.Now;
     }
 
-    [Key,DatabaseGenerated(DatabaseGeneratedOption.None)]
-    public long Id { get; set; }
+    [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public Guid Id { get; set; }
     public int ChatId { get; set; }
 
     public DateTime Sent{ get; set; }
