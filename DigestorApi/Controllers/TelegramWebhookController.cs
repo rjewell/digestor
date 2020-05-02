@@ -12,6 +12,8 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InlineQueryResults;
 using Telegram.Bot.Types.InputFiles;
 using Telegram.Bot.Types.ReplyMarkups;
+using DigestorApi.Models;
+
 
 
 namespace DigestorApi.Controllers
@@ -23,13 +25,15 @@ namespace DigestorApi.Controllers
         private readonly IConfiguration Configuration;
         private readonly ILogger<TelegramWebhookController> _logger;
         private static TelegramBotClient Bot;
+        private readonly MessageLogContext _context;
         
-        public TelegramWebhookController(ILogger<TelegramWebhookController> logger, IConfiguration configuration)
+        public TelegramWebhookController(ILogger<TelegramWebhookController> logger, IConfiguration configuration, MessageLogContext context)
         {
             _logger = logger;
             Configuration = configuration;
             //_logger.LogInformation("constructor logged");
             Bot = new TelegramBotClient(Configuration["TelegramToken"]);
+            _context = context;
         }
 
         [HttpPost]
@@ -48,6 +52,17 @@ namespace DigestorApi.Controllers
                     chatId: message.Chat.Id,
                     text: "DigestorBot - commands coming..."
                     );
+                    break;
+                default:
+
+                    var msg = new Message{
+                        ChatId = (int)message.Chat.Id,
+                        Sender = message.Chat.Username,
+                        Content = message.Text
+                    };
+                    _context.Messages.Add(msg);
+                    _context.SaveChanges();
+                    Console.Out.Write(message.Text);
                     break;
             }
 

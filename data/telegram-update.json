@@ -1,0 +1,23 @@
+{
+    "message": {
+        "chat": {
+            "first_name": "Bob",
+            "id": 12345,
+            "last_name": "J",
+            "type": "private",
+            "username": "bjuser"
+        },
+        "date": 1588393652,
+        "from": {
+            "first_name": "Bob",
+            "id": 12345,
+            "is_bot": false,
+            "language_code": "en",
+            "last_name": "J",
+            "username": "bjuser"
+        },
+        "message_id": 129,
+        "text": "sample message"
+    },
+    "update_id": 123456789
+}
