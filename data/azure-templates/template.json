@@ -1,0 +1,55 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "type": "String"
+        },
+        "location": {
+            "type": "String"
+        },
+        "locationName": {
+            "type": "String"
+        },
+        "defaultExperience": {
+            "type": "String"
+        },
+        "isZoneRedundant": {
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.DocumentDb/databaseAccounts",
+            "apiVersion": "2019-12-12",
+            "name": "[parameters('name')]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "defaultExperience": "[parameters('defaultExperience')]",
+                "hidden-cosmos-mmspecial": "",
+                "CosmosAccountType": "Non-Production"
+            },
+            "kind": "GlobalDocumentDB",
+            "properties": {
+                "enableAnalyticalStorage": false,
+                "databaseAccountOfferType": "Standard",
+                "locations": [
+                    {
+                        "id": "[concat(parameters('name'), '-', parameters('location'))]",
+                        "failoverPriority": 0,
+                        "locationName": "[parameters('locationName')]"
+                    }
+                ],
+                "enableMultipleWriteLocations": false,
+                "isVirtualNetworkFilterEnabled": false,
+                "virtualNetworkRules": [],
+                "ipRangeFilter": "",
+                "dependsOn": [],
+                "capabilities": [],
+                "enableFreeTier": true
+            }
+        }
+    ],
+    "outputs": {}
+}

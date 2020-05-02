@@ -27,7 +27,8 @@ namespace DigestorApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MessageLogContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+            IConfigurationSection cosmosSettings = Configuration.GetSection("CosmosSettings");
+            services.AddDbContext<MessageLogContext>(options => options.UseCosmos(cosmosSettings["ServiceEndpoint"], cosmosSettings["AuthKey"], cosmosSettings["DatabaseName"]));
             services.AddControllers()
             .AddNewtonsoftJson();
         }
