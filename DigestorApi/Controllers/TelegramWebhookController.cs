@@ -25,7 +25,7 @@ namespace DigestorApi.Controllers
         private readonly IConfiguration Configuration;
         private readonly ILogger<TelegramWebhookController> _logger;
         private static TelegramBotClient Bot;
-        private readonly MessageLogContext _context;
+        private readonly MessageLogContext MessageLog;
         
         public TelegramWebhookController(ILogger<TelegramWebhookController> logger, IConfiguration configuration, MessageLogContext context)
         {
@@ -33,7 +33,7 @@ namespace DigestorApi.Controllers
             Configuration = configuration;
             //_logger.LogInformation("constructor logged");
             Bot = new TelegramBotClient(Configuration["TelegramToken"]);
-            _context = context;
+            MessageLog = context;
         }
 
         [HttpPost]
@@ -49,8 +49,19 @@ namespace DigestorApi.Controllers
                 // Send inline keyboard
                 case "/info":
                     await Bot.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: "DigestorBot - commands coming..."
+                        chatId: message.Chat.Id,
+                        text: "DigestorBot - commands coming..."
+                    );
+                    break;
+                case "/summary":
+                    var count = (from t in MessageLog.Messages
+                        where t.ChatId == (int)message.Chat.Id
+                        select t).Count();
+                    await Bot.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: $@"DigestorBot Summary
+==================
+Total Messages: { count }"
                     );
                     break;
                 default:
@@ -60,8 +71,8 @@ namespace DigestorApi.Controllers
                         Sender = message.Chat.Username,
                         Content = message.Text
                     };
-                    _context.Messages.Add(msg);
-                    _context.SaveChanges();
+                    MessageLog.Messages.Add(msg);
+                    MessageLog.SaveChanges();
                     Console.Out.Write(message.Text);
                     break;
             }
