@@ -1,3 +1,4 @@
 .token
 .vscode
 DigestorApi/messagelog.db
+DigestorApi/appsettings.private.json
