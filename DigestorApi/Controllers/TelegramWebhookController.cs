@@ -53,7 +53,7 @@ namespace DigestorApi.Controllers
                         text: "DigestorBot - commands coming..."
                     );
                     break;
-                case "/summary":
+                case "/summary@DigestorBot":
                     var count = (from t in MessageLog.Messages
                         where t.ChatId == (int)message.Chat.Id
                         select t).Count();
